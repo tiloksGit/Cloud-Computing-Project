@@ -5,7 +5,7 @@ import { Routes } from "react-router-dom";
 import "@aws-amplify/ui-react/styles.css";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 
-function App({ signOut }) {
+function App({ signUp }) {
   return (
     <div className="bg-blue-300 h-screen flex justify-center text-gray-700">
       <div className="bg-gray-300 w-7/12 flex-column align-middle">
