@@ -5,7 +5,7 @@ import { Routes } from "react-router-dom";
 import "@aws-amplify/ui-react/styles.css";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 
-function App({ signUp }) {
+function App({ signOut }) {
   return (
     <div className="bg-blue-300 h-screen flex justify-center text-gray-700">
       <div className="bg-gray-300 w-7/12 flex-column align-middle">
@@ -13,6 +13,12 @@ function App({ signUp }) {
           <Route path="/" element={<Home />} />
           <Route path="/add_notes" element={<Notes />} />
         </Routes>
+        <button
+          onClick={signOut}
+          className="h-10 w-18 p-2 rounded border-solid border-2"
+        >
+          Sign Out
+        </button>
       </div>
     </div>
   );
