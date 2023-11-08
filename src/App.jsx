@@ -8,7 +8,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 function App({ signOut }) {
   return (
     <div className="bg-blue-300 h-screen flex justify-center text-gray-700">
-      <div className="bg-gray-300 w-7/12 flex-column align-middle">
+      <div className=" bg-gray-300 flex-column align-middle sm:w-7/12 ">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add_notes" element={<Notes />} />
