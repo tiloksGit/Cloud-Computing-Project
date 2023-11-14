@@ -4,8 +4,18 @@ import Notes from "./Components/notes";
 import { Routes } from "react-router-dom";
 import "@aws-amplify/ui-react/styles.css";
 import { withAuthenticator } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
+import { useEffect } from "react";
 
-function App({ signOut }) {
+const App = ({ signOut }) => {
+  const getUserDetails = async () => {
+    const user = await Auth.currentAuthenticatedUser();
+    console.log(user);
+  };
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
   return (
     <div className="bg-blue-300 h-screen flex justify-center text-gray-700">
       <div className=" bg-gray-300 flex-column align-middle sm:w-7/12 ">
@@ -22,6 +32,6 @@ function App({ signOut }) {
       </div>
     </div>
   );
-}
+};
 
 export default withAuthenticator(App);
