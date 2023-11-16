@@ -1,8 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import img from "../assets/icons8-plus-48.png";
+import trashIcon from "../assets/bin.png";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
-const Home = () => {
+const Home = ({ user, notes }) => {
+  const [userNotes, setUserNotes] = useState("");
+
+  useEffect(() => {
+    const getNotes = async () => {
+      axios
+        .post("http://localhost:3000/notes/get", {
+          uId: user.username,
+        })
+        .then((response) => {
+          if (response.data.message == "success") {
+            setUserNotes(response.data.response.Items);
+            console.log(response.data.response.Items);
+          }
+        });
+    };
+    getNotes();
+  }, []);
+
+  const handleDelete = async (noteId) => {
+    console.log(noteId);
+    axios
+      .post("http://localhost:3000/notes/delete", { noteId: noteId })
+      .then((response) => {
+        if (response.data.message == "success") {
+          alert("deleted");
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
   return (
     <>
       <div className="text-5xl p-5 text-center font-semibold text-blue-400 bg-gray-100 rounded-2xl m-2">
@@ -16,10 +49,25 @@ const Home = () => {
           </NavLink>
         </div>
       </div>
+      {userNotes ? (
+        userNotes.map((note) => (
+          <div key={note.noteId}>
+            <div className="flex justify-between p-2 bg-blue-300 mx-8 my-2 rounded-lg">
+              <section className="text-lg ">
+                {note.noteTitle}: {note.note.slice(0, 10)}....
+              </section>
+              <button onClick={() => handleDelete(note.noteId)}>
+                <img src={trashIcon} height="10px" width="20px" />
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <> No note created yet</>
+      )}
       <div className="text-center">
         Integrating Amazon AWS for safekeeping of all your notes
       </div>
-      <div className="flex justify-center p-"></div>
     </>
   );
 };
